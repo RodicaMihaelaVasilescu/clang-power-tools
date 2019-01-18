@@ -4,6 +4,7 @@ using EnvDTE80;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Windows;
 
 namespace ClangPowerTools
 {
@@ -60,28 +61,35 @@ namespace ClangPowerTools
           {
             var solution = item.Object as Solution;
             if (aClangFormatFlag)
+            {
               GetProjectItem(solution);
+            }
             else
+            {
               GetProjectsFromSolution(solution);
+            }
           }
-
           else if (item.Object is Project)
           {
             var project = item.Object as Project;
             if (aClangFormatFlag)
+            {
               GetProjectItem(project);
+            }
             else
+            {
               AddProject(project);
+            }
           }
-
           else if (item.Object is ProjectItem)
+          {
             GetProjectItem(item.Object as ProjectItem);
+          }
         }
       }
       catch (Exception)
       {
       }
-
     }
 
 
@@ -96,6 +104,68 @@ namespace ClangPowerTools
 
       mItems.Add(new SelectedProjectItem(aItem));
     }
+
+    /// <summary>
+    /// Get the name of the active document
+    /// </summary>
+    public static List<string> GetDocumentsToIgnore()
+    {
+      List<string> documentsToIgnore = new List<string>();
+      DTE vsServiceProvider = VsServiceProvider.TryGetService(typeof(DTE), out object dte) ?
+          (dte as DTE) : null;
+
+      Document activeDocument = vsServiceProvider.ActiveDocument;
+      SelectedItems selectedItems = vsServiceProvider.SelectedItems;
+
+
+      Array test = (dte as DTE2).ToolWindows.SolutionExplorer.SelectedItems as Array;
+
+      foreach (UIHierarchyItem item in test)
+      {
+        if (item.Object is Project)
+        {
+          var project = item.Object as Project;
+          var projectItems = project.ProjectItems;
+
+            for (int i = 1; i <= projectItems.Count; i++)
+            {
+
+            var oneItem = projectItems.Item(i);
+            MessageBox.Show(oneItem.Name);
+
+
+            if (oneItem.ProjectItems.Count > 0)
+            {
+              for (int j = 1; j <= oneItem.ProjectItems.Count; j++)
+              {
+                MessageBox.Show(oneItem.ProjectItems.Item(j).Name);
+              }
+
+
+            }   
+            }
+          }      
+      }
+
+
+
+      if (selectedItems.Count == 1 && selectedItems.Item(1).Name == activeDocument.Name)
+      {
+        documentsToIgnore.Add(activeDocument.Name);
+        return documentsToIgnore;
+      }
+
+      if (selectedItems.Count > 0)
+      {
+
+        for (int i = 1; i <= selectedItems.Count; i++)
+        {
+          documentsToIgnore.Add(selectedItems.Item(i).Name);
+        }
+      }
+      return documentsToIgnore;
+    }
+
 
     #endregion
 
@@ -159,8 +229,6 @@ namespace ClangPowerTools
         GetProjectItem(project);
       }
     }
-
-
 
 
     #endregion
