@@ -19,13 +19,14 @@ namespace ClangPowerTools.MVVM.ViewModels
       {
         if(authenticationKey == value) { return; }
 
-        authenticationKey = Regex.Replace(value, "[A-Za-z ]", "");
+        authenticationKey = new String(value.Where(Char.IsDigit).ToArray());
         authenticationKey = authenticationKey.Length <= 16 ? authenticationKey : authenticationKey.Substring(0, 16);
         authenticationKey= Regex.Replace(authenticationKey, ".{4}", "$0 ");
 
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("AuthenticationKey"));
       }
     }
+
 
     public event PropertyChangedEventHandler PropertyChanged;
   }
