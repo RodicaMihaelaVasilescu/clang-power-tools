@@ -1,5 +1,6 @@
 ﻿using ClangPowerTools.Commands;
 using ClangPowerTools.Events;
+using ClangPowerTools.MVVM.Views;
 using ClangPowerTools.Services;
 using ClangPowerTools.Views;
 using EnvDTE;
@@ -8,6 +9,7 @@ using Microsoft.VisualStudio.Shell;
 using System;
 using System.IO;
 using System.Linq;
+using System.Net;
 using Task = System.Threading.Tasks.Task;
 
 namespace ClangPowerTools
@@ -109,8 +111,21 @@ namespace ClangPowerTools
     {
       if (activeLicense == false)
       {
-        LoginView loginView = new LoginView();
-        loginView.ShowDialog();
+        try
+        {
+          using (var client = new WebClient())
+          using (client.OpenRead("http://clients3.google.com/generate_204"))
+          {
+            LoginView loginView = new LoginView();
+            loginView.ShowDialog();
+          }
+        }
+        catch
+        {
+          OfflineLoginView offlineLoginView = new OfflineLoginView();
+          offlineLoginView.ShowDialog();
+        }
+
         return;
       }
 

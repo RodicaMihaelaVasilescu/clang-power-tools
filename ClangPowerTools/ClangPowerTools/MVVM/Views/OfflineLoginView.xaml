@@ -33,130 +33,8 @@
       FontFamily="SegoeUI"
       FontSize="20"
       Foreground="#E2E2E8"
-      Text="Login to use Clang Power Tools"
+      Text="Enter validation key to use Clang Power Tools"
       TextAlignment="Center" />
-
-    <TextBlock
-      Grid.Row="1"
-      Width="430"
-      Height="40"
-      Margin="0,30,0,0"
-      HorizontalAlignment="Center"
-      VerticalAlignment="Center"
-      Background="White"
-      FontFamily="SegoeUI"
-      FontSize="16"
-      Foreground="#E2E2E8"
-      TextAlignment="Center" />
-
-    <TextBox
-      Name="EmailTextBox"
-      Grid.Row="1"
-      Width="430"
-      Height="40"
-      Margin="0,30,0,0"
-      Padding="5,0"
-      HorizontalAlignment="Center"
-      VerticalAlignment="Center"
-      VerticalContentAlignment="Center"
-      Panel.ZIndex="0"
-      BorderBrush="LightGray"
-      BorderThickness="1"
-      FontFamily="SegoeUI"
-      FontSize="16"
-      Text="{Binding Email, ValidatesOnDataErrors=True, UpdateSourceTrigger=LostFocus}">
-
-      <TextBox.Style>
-        <Style xmlns:sys="clr-namespace:System;assembly=mscorlib" TargetType="TextBox">
-          <Style.Resources>
-
-            <VisualBrush
-              x:Key="GrayHelperTextBrush"
-              AlignmentX="Left"
-              AlignmentY="Center"
-              Stretch="None">
-              <VisualBrush.Visual>
-                <Label
-                  Name="SearchLabel"
-                  Content="Email"
-                  FontFamily="SegoeUI"
-                  FontSize="16"
-                  Foreground="LightSlateGray" />
-              </VisualBrush.Visual>
-            </VisualBrush>
-
-            <VisualBrush
-              x:Key="BlackHelperTextBrush"
-              AlignmentX="Left"
-              AlignmentY="Center"
-              Stretch="None">
-              <VisualBrush.Visual>
-                <Label
-                  Name="SearchBlackLabel"
-                  Content="Email"
-                  FontFamily="SegoeUI"
-                  FontSize="16"
-                  Foreground="DarkSlateGray" />
-              </VisualBrush.Visual>
-            </VisualBrush>
-
-          </Style.Resources>
-          <Style.Triggers>
-
-            <Trigger Property="IsKeyboardFocused" Value="True">
-              <Setter Property="Background" Value="White" />
-            </Trigger>
-
-            <MultiTrigger>
-              <MultiTrigger.Conditions>
-                <Condition Property="Text" Value="{x:Null}" />
-                <Condition Property="IsMouseOver" Value="False" />
-                <Condition Property="IsMouseCaptured" Value="False" />
-                <Condition Property="IsFocused" Value="False" />
-              </MultiTrigger.Conditions>
-              <MultiTrigger.Setters>
-                <Setter Property="Background" Value="{StaticResource GrayHelperTextBrush}" />
-              </MultiTrigger.Setters>
-            </MultiTrigger>
-
-            <MultiTrigger>
-              <MultiTrigger.Conditions>
-                <Condition Property="Text" Value="{x:Static sys:String.Empty}" />
-                <Condition Property="IsMouseOver" Value="False" />
-                <Condition Property="IsMouseCaptured" Value="False" />
-                <Condition Property="IsFocused" Value="False" />
-              </MultiTrigger.Conditions>
-              <MultiTrigger.Setters>
-                <Setter Property="Background" Value="{StaticResource GrayHelperTextBrush}" />
-              </MultiTrigger.Setters>
-            </MultiTrigger>
-
-            <MultiTrigger>
-              <MultiTrigger.Conditions>
-                <Condition Property="Text" Value="{x:Null}" />
-                <Condition Property="IsMouseOver" Value="True" />
-                <Condition Property="IsFocused" Value="False" />
-              </MultiTrigger.Conditions>
-              <MultiTrigger.Setters>
-                <Setter Property="Background" Value="{StaticResource BlackHelperTextBrush}" />
-              </MultiTrigger.Setters>
-            </MultiTrigger>
-
-            <MultiTrigger>
-              <MultiTrigger.Conditions>
-                <Condition Property="Text" Value="{x:Static sys:String.Empty}" />
-                <Condition Property="IsMouseOver" Value="True" />
-                <Condition Property="IsFocused" Value="False" />
-              </MultiTrigger.Conditions>
-              <MultiTrigger.Setters>
-                <Setter Property="Background" Value="{StaticResource BlackHelperTextBrush}" />
-              </MultiTrigger.Setters>
-            </MultiTrigger>
-
-          </Style.Triggers>
-        </Style>
-      </TextBox.Style>
-    </TextBox>
 
     <TextBlock
       Grid.Row="2"
@@ -170,8 +48,27 @@
       FontSize="16"
       Foreground="#E2E2E8"
       TextAlignment="Center" />
+    
+    <!--<toolkit:MaskedTextBox
+      Grid.Row="2"
+      Width="430"
+      Height="40"
+      Margin="0,30,0,0"
+      Padding="5,0"
+      HorizontalAlignment="Center"
+      VerticalAlignment="Center"
+      HorizontalContentAlignment="Center"
+      VerticalContentAlignment="Center"
+      Panel.ZIndex="0"
+      BorderBrush="LightGray"
+      BorderThickness="1"
+      FontFamily="SegoeUI"
+      FontSize="16"
+      IsEnabled="True"
+      CaretIndex="0"
+      Mask="0 0 0 0   0 0 0 0   0 0 0 0   0 0 0 0"  />-->
 
-    <PasswordBox
+    <!--<PasswordBox
       Name="PasswordTextBox"
       Grid.Row="2"
       Width="430"
@@ -189,6 +86,7 @@
       PasswordChanged="OnPasswordChanged"
       Tag="False">
 
+      
       <PasswordBox.Style>
         <Style xmlns:sys="clr-namespace:System;assembly=mscorlib" TargetType="PasswordBox">
           <Style.Resources>
@@ -255,7 +153,7 @@
           </Style.Triggers>
         </Style>
       </PasswordBox.Style>
-    </PasswordBox>
+    </PasswordBox>-->
 
     <TextBlock
       Name="InvalidUserTextBlock"
@@ -373,7 +271,6 @@
       VerticalAlignment="Center"
       Background="Transparent"
       BorderThickness="0"
-      Click="ForgotPasswordButton_Click"
       Content="Forgot Password?"
       Cursor="Hand"
       FontFamily="SegoeUI"
