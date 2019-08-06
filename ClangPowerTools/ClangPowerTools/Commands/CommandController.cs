@@ -116,8 +116,10 @@ namespace ClangPowerTools
           using (var client = new WebClient())
           using (client.OpenRead("http://clients3.google.com/generate_204"))
           {
-            LoginView loginView = new LoginView();
-            loginView.ShowDialog();
+            //LoginView loginView = new LoginView();
+            //loginView.ShowDialog();
+            OfflineLoginView offlineLoginView = new OfflineLoginView();
+            offlineLoginView.ShowDialog();
           }
         }
         catch

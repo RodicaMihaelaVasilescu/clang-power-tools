@@ -7,6 +7,9 @@
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
   Width="824"
   Height="485"
+  ResizeMode="NoResize"
+  WindowStartupLocation="CenterScreen"
+  WindowStyle="ToolWindow"
   mc:Ignorable="d">
 
   <Grid>
@@ -33,44 +36,12 @@
       FontFamily="SegoeUI"
       FontSize="20"
       Foreground="#E2E2E8"
-      Text="Enter validation key to use Clang Power Tools"
+      Text="Enter authentication key to use Clang Power Tools"
       TextAlignment="Center" />
 
-    <TextBlock
-      Grid.Row="2"
-      Width="430"
-      Height="40"
-      Margin="0,30,0,0"
-      HorizontalAlignment="Center"
-      VerticalAlignment="Center"
-      Background="White"
-      FontFamily="SegoeUI"
-      FontSize="16"
-      Foreground="#E2E2E8"
-      TextAlignment="Center" />
-    
-    <!--<toolkit:MaskedTextBox
-      Grid.Row="2"
-      Width="430"
-      Height="40"
-      Margin="0,30,0,0"
-      Padding="5,0"
-      HorizontalAlignment="Center"
-      VerticalAlignment="Center"
-      HorizontalContentAlignment="Center"
-      VerticalContentAlignment="Center"
-      Panel.ZIndex="0"
-      BorderBrush="LightGray"
-      BorderThickness="1"
-      FontFamily="SegoeUI"
-      FontSize="16"
-      IsEnabled="True"
-      CaretIndex="0"
-      Mask="0 0 0 0   0 0 0 0   0 0 0 0   0 0 0 0"  />-->
-
-    <!--<PasswordBox
-      Name="PasswordTextBox"
-      Grid.Row="2"
+    <TextBox
+      Name="KeyTextBox"
+      Grid.Row="1"
       Width="430"
       Height="40"
       Margin="0,30,0,0"
@@ -83,13 +54,12 @@
       BorderThickness="1"
       FontFamily="SegoeUI"
       FontSize="16"
-      PasswordChanged="OnPasswordChanged"
-      Tag="False">
+      Text="{Binding AuthenticationKey, UpdateSourceTrigger=PropertyChanged}">
 
-      
-      <PasswordBox.Style>
-        <Style xmlns:sys="clr-namespace:System;assembly=mscorlib" TargetType="PasswordBox">
+      <TextBox.Style>
+        <Style xmlns:sys="clr-namespace:System;assembly=mscorlib" TargetType="TextBox">
           <Style.Resources>
+
             <VisualBrush
               x:Key="GrayHelperTextBrush"
               AlignmentX="Left"
@@ -98,7 +68,7 @@
               <VisualBrush.Visual>
                 <Label
                   Name="SearchLabel"
-                  Content="Password"
+                  Content="Authentication key"
                   FontFamily="SegoeUI"
                   FontSize="16"
                   Foreground="LightSlateGray" />
@@ -113,7 +83,7 @@
               <VisualBrush.Visual>
                 <Label
                   Name="SearchBlackLabel"
-                  Content="Password"
+                  Content="Authentication key"
                   FontFamily="SegoeUI"
                   FontSize="16"
                   Foreground="DarkSlateGray" />
@@ -129,7 +99,7 @@
 
             <MultiTrigger>
               <MultiTrigger.Conditions>
-                <Condition Property="Tag" Value="False" />
+                <Condition Property="Text" Value="{x:Null}" />
                 <Condition Property="IsMouseOver" Value="False" />
                 <Condition Property="IsMouseCaptured" Value="False" />
                 <Condition Property="IsFocused" Value="False" />
@@ -141,7 +111,30 @@
 
             <MultiTrigger>
               <MultiTrigger.Conditions>
-                <Condition Property="Tag" Value="False" />
+                <Condition Property="Text" Value="{x:Static sys:String.Empty}" />
+                <Condition Property="IsMouseOver" Value="False" />
+                <Condition Property="IsMouseCaptured" Value="False" />
+                <Condition Property="IsFocused" Value="False" />
+              </MultiTrigger.Conditions>
+              <MultiTrigger.Setters>
+                <Setter Property="Background" Value="{StaticResource GrayHelperTextBrush}" />
+              </MultiTrigger.Setters>
+            </MultiTrigger>
+
+            <MultiTrigger>
+              <MultiTrigger.Conditions>
+                <Condition Property="Text" Value="{x:Null}" />
+                <Condition Property="IsMouseOver" Value="True" />
+                <Condition Property="IsFocused" Value="False" />
+              </MultiTrigger.Conditions>
+              <MultiTrigger.Setters>
+                <Setter Property="Background" Value="{StaticResource BlackHelperTextBrush}" />
+              </MultiTrigger.Setters>
+            </MultiTrigger>
+
+            <MultiTrigger>
+              <MultiTrigger.Conditions>
+                <Condition Property="Text" Value="{x:Static sys:String.Empty}" />
                 <Condition Property="IsMouseOver" Value="True" />
                 <Condition Property="IsFocused" Value="False" />
               </MultiTrigger.Conditions>
@@ -152,8 +145,8 @@
 
           </Style.Triggers>
         </Style>
-      </PasswordBox.Style>
-    </PasswordBox>-->
+      </TextBox.Style>
+    </TextBox>
 
     <TextBlock
       Name="InvalidUserTextBlock"
@@ -181,7 +174,6 @@
       HorizontalContentAlignment="Center"
       VerticalContentAlignment="Center"
       Background="#FFBF31"
-      Click="LoginButton_Click"
       Content="LOG IN"
       Cursor="Hand"
       FontFamily="SegoeUI"
@@ -262,7 +254,7 @@
 
     </Button>
 
-    <Button
+    <!--<Button
       Grid.Row="4"
       Width="108"
       Height="19"
@@ -298,9 +290,9 @@
           </ControlTemplate.Triggers>
         </ControlTemplate>
       </Button.Template>
-    </Button>
+    </Button>-->
 
-    <Button
+    <!--<Button
       Grid.Row="5"
       Width="185"
       Height="19"
@@ -309,7 +301,6 @@
       VerticalAlignment="Center"
       Background="Transparent"
       BorderThickness="0"
-      Click="SignUpButton_Click"
       Content="Sign up for Clang Power Tools"
       Cursor="Hand"
       FontFamily="SegoeUI"
@@ -338,7 +329,7 @@
         </ControlTemplate>
       </Button.Template>
 
-    </Button>
+    </Button>-->
 
   </Grid>
 </Window>

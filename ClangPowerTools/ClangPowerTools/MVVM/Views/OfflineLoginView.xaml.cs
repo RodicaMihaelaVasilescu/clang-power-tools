@@ -1,4 +1,5 @@
-﻿using ClangPowerTools.MVVM.WebApi;
+﻿using ClangPowerTools.MVVM.ViewModels;
+using ClangPowerTools.MVVM.WebApi;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -22,18 +23,23 @@ namespace ClangPowerTools.MVVM.Views
   /// </summary>
   public partial class OfflineLoginView : Window
   {
+    private OfflineLoginViewModel offlineLoginViewModel = new OfflineLoginViewModel();
     public OfflineLoginView()
     {
       InitializeComponent();
+      DataContext = offlineLoginViewModel;
     }
 
-    private void LoginButton_Click(object sender, RoutedEventArgs e)
-    {
-    }
-    private void SignUpButton_Click(object sender, RoutedEventArgs e)
-    {
-      Process.Start(new ProcessStartInfo(WebApiUrl.signUpUrl));
-    }
-
+    //private void TextBox_KeyDown(object sender, KeyEventArgs e)
+    //{
+    //  if (e.Key >= Key.D0 && e.Key <= Key.D9)
+    //  {
+    //    e.Handled = false;
+    //  }
+    //  else
+    //  {
+    //    e.Handled = true;
+    //  }
+    //}
   }
 }
