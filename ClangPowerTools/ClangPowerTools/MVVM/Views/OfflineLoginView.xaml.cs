@@ -1,6 +1,9 @@
 ﻿using ClangPowerTools.MVVM.ViewModels;
+using System;
 using System.IO;
+using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace ClangPowerTools.MVVM.Views
@@ -25,25 +28,23 @@ namespace ClangPowerTools.MVVM.Views
       DataContext = offlineLoginViewModel;
     }
 
-   private void ActivateButton_Click(object sender, RoutedEventArgs e)
+    private void ActivateButton_Click(object sender, RoutedEventArgs e)
     {
-      if (string.IsNullOrWhiteSpace(offlineLoginViewModel.AuthenticationKey) )
+      if (string.IsNullOrWhiteSpace(offlineLoginViewModel.AuthenticationKey))
       {
         InvalidUserTextBlock.Text = invalidAuthenticationKey;
         InvalidUserTextBlock.Visibility = Visibility.Visible;
         return;
       }
 
-     // SetLoginButtonState(false, colorBackgroundDisabled, colorForegroundDisabled);
+      // SetLoginButtonState(false, colorBackgroundDisabled, colorForegroundDisabled);
 
       InvalidUserTextBlock.Text = invalidAuthenticationKey;
       InvalidUserTextBlock.Visibility = Visibility.Hidden;
       bool isAuthenticationKeyValid = VerifyAuthenticationKey();
       if (isAuthenticationKeyValid)
       {
-        SettingsPathBuilder settingsPathBuilder = new SettingsPathBuilder();
-        string filePath = settingsPathBuilder.GetPath("ctpjwt");
-        SaveToken("ctpjwt");
+        CreateCptjwtFile();
         Close();
       }
       else
@@ -54,9 +55,23 @@ namespace ClangPowerTools.MVVM.Views
       }
     }
 
+    private void CreateCptjwtFile()
+    {
+      SettingsPathBuilder settingsPathBuilder = new SettingsPathBuilder();
+      string filePath = settingsPathBuilder.GetPath("ctpjwt");
+      SaveToken(Guid.NewGuid().ToString());
+    }
+
     private bool VerifyAuthenticationKey()
     {
-      return true;
+      if (KeyTextBox.Text.Where(Char.IsLetterOrDigit).Count() != 16)
+      {
+        return false;
+      }
+
+      return KeyTextBox.Text.Substring(0, 4).Select(c => (int)c).Sum() == 300 &&
+        KeyTextBox.Text.Substring(11, 4).Select(c => (int)c).Sum() == 300;
+      //&& KeyTextBox.Text.Select(c => int.Parse(c.ToString())).Sum() == 999;
     }
     private void SaveToken(string token)
     {
@@ -88,6 +103,21 @@ namespace ClangPowerTools.MVVM.Views
       ActivateButton.IsEnabled = isEnabled;
       ActivateButton.Background = new SolidColorBrush(colorBackground);
       ActivateButton.Foreground = new SolidColorBrush(colorForeground);
+    }
+
+    //keep cursor index constant while updating input text
+    private void KeyTextBox_SourceUpdated(object sender, System.Windows.Data.DataTransferEventArgs e)
+    {
+      var txtBx = sender as TextBox;
+      if (txtBx == null || txtBx.Text == null) return;
+      if (txtBx.CaretIndex == 4 || txtBx.CaretIndex == 8)
+      {
+        //if(txtBx.Text[txtBx.CaretIndex].Equals(' '))
+        //{
+        //  txtBx.CaretIndex++;
+        //}
+        txtBx.CaretIndex ++;
+      }
     }
   }
 }

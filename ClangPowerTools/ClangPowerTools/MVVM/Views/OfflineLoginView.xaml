@@ -66,7 +66,8 @@
       BorderThickness="1"
       FontFamily="SegoeUI"
       FontSize="16"
-      Text="{Binding AuthenticationKey, UpdateSourceTrigger=PropertyChanged}">
+      Text="{Binding AuthenticationKey, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}"
+      SourceUpdated="KeyTextBox_SourceUpdated">
 
       <TextBox.Style>
         <Style xmlns:sys="clr-namespace:System;assembly=mscorlib" TargetType="TextBox">
