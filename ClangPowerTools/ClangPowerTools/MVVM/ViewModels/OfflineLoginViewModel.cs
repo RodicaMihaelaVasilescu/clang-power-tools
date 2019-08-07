@@ -19,9 +19,9 @@ namespace ClangPowerTools.MVVM.ViewModels
       {
         if(authenticationKey == value) { return; }
 
-        authenticationKey = new String(value.Where(Char.IsDigit).ToArray());
-        authenticationKey = authenticationKey.Length <= 16 ? authenticationKey : authenticationKey.Substring(0, 16);
-        authenticationKey= Regex.Replace(authenticationKey, ".{4}", "$0 ");
+        var formatedInput = new String(value.Where(Char.IsLetterOrDigit).ToArray());
+        formatedInput = formatedInput.Length <= 16 ? formatedInput : formatedInput.Substring(0, 16);
+        authenticationKey = Regex.Replace(formatedInput, ".{4}", "$0 ");
 
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("AuthenticationKey"));
       }

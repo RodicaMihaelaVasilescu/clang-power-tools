@@ -24,22 +24,59 @@ namespace ClangPowerTools.MVVM.Views
   public partial class OfflineLoginView : Window
   {
     private OfflineLoginViewModel offlineLoginViewModel = new OfflineLoginViewModel();
+    // Login button colors
+    private readonly string colorBackgroundEnabled = "#FFBF31";
+    private readonly string colorForegroundEnabled = "#000000";
+    private readonly string colorBackgroundDisabled = "#BBB6C4";
+    private readonly string colorForegroundDisabled = "#707079";
+
+    // Validation messages
+    private readonly string invalidAuthenticationKey = "The authentication key that you have enterd is not valid.";
     public OfflineLoginView()
     {
       InitializeComponent();
       DataContext = offlineLoginViewModel;
     }
 
-    //private void TextBox_KeyDown(object sender, KeyEventArgs e)
-    //{
-    //  if (e.Key >= Key.D0 && e.Key <= Key.D9)
-    //  {
-    //    e.Handled = false;
-    //  }
-    //  else
-    //  {
-    //    e.Handled = true;
-    //  }
-    //}
+   private void ActivateButton_Click(object sender, RoutedEventArgs e)
+    {
+      if (string.IsNullOrWhiteSpace(offlineLoginViewModel.AuthenticationKey) )
+      {
+        InvalidUserTextBlock.Text = invalidAuthenticationKey;
+        InvalidUserTextBlock.Visibility = Visibility.Visible;
+        return;
+      }
+
+      SetLoginButtonState(false, colorBackgroundDisabled, colorForegroundDisabled);
+
+      InvalidUserTextBlock.Text = invalidAuthenticationKey;
+      InvalidUserTextBlock.Visibility = Visibility.Hidden;
+      bool isAuthenticationKeyValid = VerifyAuthenticationKey();
+      if (isAuthenticationKeyValid)
+      {
+        Close();
+      }
+      else
+      {
+        SetLoginButtonState(true, colorBackgroundEnabled, colorForegroundEnabled);
+        InvalidUserTextBlock.Text = invalidAuthenticationKey;
+        InvalidUserTextBlock.Visibility = Visibility.Visible;
+      }
+    }
+
+    private bool VerifyAuthenticationKey()
+    {
+      return true;
+    }
+
+    private void SetLoginButtonState(bool isEnabled, string background, string foreground)
+    {
+      Color colorBackground = (Color)ColorConverter.ConvertFromString(background);
+      Color colorForeground = (Color)ColorConverter.ConvertFromString(foreground);
+
+      ActivateButton.IsEnabled = isEnabled;
+      ActivateButton.Background = new SolidColorBrush(colorBackground);
+      ActivateButton.Foreground = new SolidColorBrush(colorForeground);
+    }
   }
 }
