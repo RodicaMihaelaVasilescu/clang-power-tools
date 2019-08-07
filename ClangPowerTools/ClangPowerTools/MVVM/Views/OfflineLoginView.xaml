@@ -38,6 +38,19 @@
       Text="Enter offline authentication key to use Clang Power Tools"
       TextAlignment="Center" />
 
+    <TextBlock
+      Grid.Row="1"
+      Width="430"
+      Height="40"
+      Margin="0,30,0,0"
+      HorizontalAlignment="Center"
+      VerticalAlignment="Center"
+      Background="White"
+      FontFamily="SegoeUI"
+      FontSize="16"
+      Foreground="#E2E2E8"
+      TextAlignment="Center" />
+    
     <TextBox
       Name="KeyTextBox"
       Grid.Row="1"
@@ -67,7 +80,7 @@
               <VisualBrush.Visual>
                 <Label
                   Name="SearchLabel"
-                  Content="Email"
+                  Content="Authentication key"
                   FontFamily="SegoeUI"
                   FontSize="16"
                   Foreground="LightSlateGray" />
@@ -82,7 +95,7 @@
               <VisualBrush.Visual>
                 <Label
                   Name="SearchBlackLabel"
-                  Content="Email"
+                  Content="Authentication key"
                   FontFamily="SegoeUI"
                   FontSize="16"
                   Foreground="DarkSlateGray" />
@@ -146,6 +159,7 @@
         </Style>
       </TextBox.Style>
     </TextBox>
+
 
     <TextBlock
       Name="InvalidUserTextBlock"

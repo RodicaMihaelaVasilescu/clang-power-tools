@@ -118,8 +118,6 @@ namespace ClangPowerTools
           {
             LoginView loginView = new LoginView();
             loginView.ShowDialog();
-            //OfflineLoginView offlineLoginView = new OfflineLoginView();
-            //offlineLoginView.ShowDialog();
           }
         }
         catch

@@ -66,7 +66,7 @@ namespace ClangPowerTools.MVVM.Views
 
     private bool VerifyAuthenticationKey()
     {
-      return true;
+      return false;
     }
 
     private void SetLoginButtonState(bool isEnabled, string background, string foreground)
