@@ -1,20 +1,7 @@
 ﻿using ClangPowerTools.MVVM.ViewModels;
-using ClangPowerTools.MVVM.WebApi;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ClangPowerTools.MVVM.Views
 {
@@ -25,10 +12,10 @@ namespace ClangPowerTools.MVVM.Views
   {
     private OfflineLoginViewModel offlineLoginViewModel = new OfflineLoginViewModel();
     // Login button colors
-    private readonly string colorBackgroundEnabled = "#FFBF31";
-    private readonly string colorForegroundEnabled = "#000000";
-    private readonly string colorBackgroundDisabled = "#BBB6C4";
-    private readonly string colorForegroundDisabled = "#707079";
+    //private readonly string colorBackgroundEnabled = "#FFBF31";
+    //private readonly string colorForegroundEnabled = "#000000";
+    //private readonly string colorBackgroundDisabled = "#BBB6C4";
+    //private readonly string colorForegroundDisabled = "#707079";
 
     // Validation messages
     private readonly string invalidAuthenticationKey = "The authentication key that you have enterd is not valid.";
@@ -47,18 +34,21 @@ namespace ClangPowerTools.MVVM.Views
         return;
       }
 
-      SetLoginButtonState(false, colorBackgroundDisabled, colorForegroundDisabled);
+     // SetLoginButtonState(false, colorBackgroundDisabled, colorForegroundDisabled);
 
       InvalidUserTextBlock.Text = invalidAuthenticationKey;
       InvalidUserTextBlock.Visibility = Visibility.Hidden;
       bool isAuthenticationKeyValid = VerifyAuthenticationKey();
       if (isAuthenticationKeyValid)
       {
+        SettingsPathBuilder settingsPathBuilder = new SettingsPathBuilder();
+        string filePath = settingsPathBuilder.GetPath("ctpjwt");
+        SaveToken("ctpjwt");
         Close();
       }
       else
       {
-        SetLoginButtonState(true, colorBackgroundEnabled, colorForegroundEnabled);
+        //SetLoginButtonState(true, colorBackgroundEnabled, colorForegroundEnabled);
         InvalidUserTextBlock.Text = invalidAuthenticationKey;
         InvalidUserTextBlock.Visibility = Visibility.Visible;
       }
@@ -66,8 +56,29 @@ namespace ClangPowerTools.MVVM.Views
 
     private bool VerifyAuthenticationKey()
     {
-      return false;
+      return true;
     }
+    private void SaveToken(string token)
+    {
+      SettingsPathBuilder settingsPathBuilder = new SettingsPathBuilder();
+      string filePath = settingsPathBuilder.GetPath("ctpjwt");
+      DeleteExistingToken(filePath);
+
+      using (StreamWriter streamWriter = new StreamWriter(filePath))
+      {
+        streamWriter.WriteLine(token);
+      }
+      File.SetAttributes(filePath, File.GetAttributes(filePath) | FileAttributes.Hidden);
+    }
+
+    private void DeleteExistingToken(string filePath)
+    {
+      if (File.Exists(filePath))
+      {
+        File.Delete(filePath);
+      }
+    }
+
 
     private void SetLoginButtonState(bool isEnabled, string background, string foreground)
     {
