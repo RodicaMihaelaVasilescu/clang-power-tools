@@ -50,7 +50,7 @@
       FontSize="16"
       Foreground="#E2E2E8"
       TextAlignment="Center" />
-    
+
     <TextBox
       Name="KeyTextBox"
       Grid.Row="1"

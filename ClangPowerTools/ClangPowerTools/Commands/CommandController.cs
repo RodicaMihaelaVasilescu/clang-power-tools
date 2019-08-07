@@ -1,5 +1,6 @@
 ﻿using ClangPowerTools.Commands;
 using ClangPowerTools.Events;
+using ClangPowerTools.Helpers;
 using ClangPowerTools.MVVM.Views;
 using ClangPowerTools.Services;
 using ClangPowerTools.Views;
@@ -111,16 +112,13 @@ namespace ClangPowerTools
     {
       if (activeLicense == false)
       {
-        try
+        var networkAvailable = await NetworkUtility.CheckInternetConnectionAsync();
+        if (networkAvailable)
         {
-          using (var client = new WebClient())
-          using (client.OpenRead("http://clients3.google.com/generate_204"))
-          {
-            LoginView loginView = new LoginView();
-            loginView.ShowDialog();
-          }
+          LoginView loginView = new LoginView();
+          loginView.ShowDialog();
         }
-        catch
+        else
         {
           OfflineLoginView offlineLoginView = new OfflineLoginView();
           offlineLoginView.ShowDialog();
