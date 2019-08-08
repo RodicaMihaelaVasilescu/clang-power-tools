@@ -15,10 +15,10 @@ namespace ClangPowerTools.MVVM.Views
   {
     private OfflineLoginViewModel offlineLoginViewModel = new OfflineLoginViewModel();
     // Login button colors
-    //private readonly string colorBackgroundEnabled = "#FFBF31";
-    //private readonly string colorForegroundEnabled = "#000000";
-    //private readonly string colorBackgroundDisabled = "#BBB6C4";
-    //private readonly string colorForegroundDisabled = "#707079";
+    private readonly string colorBackgroundEnabled = "#FFBF31";
+    private readonly string colorForegroundEnabled = "#000000";
+    private readonly string colorBackgroundDisabled = "#BBB6C4";
+    private readonly string colorForegroundDisabled = "#707079";
 
     // Validation messages
     private readonly string invalidAuthenticationKey = "The authentication key that you have enterd is not valid.";
@@ -37,7 +37,7 @@ namespace ClangPowerTools.MVVM.Views
         return;
       }
 
-      // SetLoginButtonState(false, colorBackgroundDisabled, colorForegroundDisabled);
+      SetLoginButtonState(false, colorBackgroundDisabled, colorForegroundDisabled);
 
       InvalidUserTextBlock.Text = invalidAuthenticationKey;
       InvalidUserTextBlock.Visibility = Visibility.Hidden;
@@ -49,7 +49,7 @@ namespace ClangPowerTools.MVVM.Views
       }
       else
       {
-        //SetLoginButtonState(true, colorBackgroundEnabled, colorForegroundEnabled);
+        SetLoginButtonState(true, colorBackgroundEnabled, colorForegroundEnabled);
         InvalidUserTextBlock.Text = invalidAuthenticationKey;
         InvalidUserTextBlock.Visibility = Visibility.Visible;
       }
@@ -69,9 +69,11 @@ namespace ClangPowerTools.MVVM.Views
         return false;
       }
 
-      return KeyTextBox.Text.Substring(0, 4).Select(c => (int)c).Sum() == 300 &&
-        KeyTextBox.Text.Substring(11, 4).Select(c => (int)c).Sum() == 300;
-      //&& KeyTextBox.Text.Select(c => int.Parse(c.ToString())).Sum() == 999;
+      bool condition1 = KeyTextBox.Text.Substring(0, 4).Select(c => (int)c).Sum() == 400;
+      bool condition2 = !KeyTextBox.Text.Substring(5, 4).Any(c => c % 2 != 0);
+      bool condition3 = !KeyTextBox.Text.Substring(10, 4).Any(c => c % 2 == 0);
+      bool condition4 = KeyTextBox.Text.Substring(15, 4).Select(c => (int)c).Sum() == 400;
+      return condition1 && condition2 && condition3 && condition4;
     }
     private void SaveToken(string token)
     {
@@ -94,7 +96,6 @@ namespace ClangPowerTools.MVVM.Views
       }
     }
 
-
     private void SetLoginButtonState(bool isEnabled, string background, string foreground)
     {
       Color colorBackground = (Color)ColorConverter.ConvertFromString(background);
@@ -103,21 +104,6 @@ namespace ClangPowerTools.MVVM.Views
       ActivateButton.IsEnabled = isEnabled;
       ActivateButton.Background = new SolidColorBrush(colorBackground);
       ActivateButton.Foreground = new SolidColorBrush(colorForeground);
-    }
-
-    //keep cursor index constant while updating input text
-    private void KeyTextBox_SourceUpdated(object sender, System.Windows.Data.DataTransferEventArgs e)
-    {
-      var txtBx = sender as TextBox;
-      if (txtBx == null || txtBx.Text == null) return;
-      if (txtBx.CaretIndex == 4 || txtBx.CaretIndex == 8)
-      {
-        //if(txtBx.Text[txtBx.CaretIndex].Equals(' '))
-        //{
-        //  txtBx.CaretIndex++;
-        //}
-        txtBx.CaretIndex ++;
-      }
     }
   }
 }
