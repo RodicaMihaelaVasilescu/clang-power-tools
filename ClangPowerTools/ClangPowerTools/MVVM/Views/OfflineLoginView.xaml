@@ -22,14 +22,12 @@
       <RowDefinition Height="auto" />
       <RowDefinition Height="auto" />
       <RowDefinition Height="auto" />
-      <RowDefinition Height="auto" />
-      <RowDefinition Height="*" />
     </Grid.RowDefinitions>
 
     <TextBlock
       Grid.Row="0"
       Height="27"
-      Margin="0,86,0,0"
+      Margin="0,130,0,0"
       HorizontalAlignment="Center"
       VerticalAlignment="Center"
       FontFamily="SegoeUI"
@@ -38,7 +36,7 @@
       Text="Enter offline authentication key to use Clang Power Tools"
       TextAlignment="Center" />
 
-    <TextBlock
+    <!--<TextBlock
       Grid.Row="1"
       Width="430"
       Height="40"
@@ -49,7 +47,7 @@
       FontFamily="SegoeUI"
       FontSize="16"
       Foreground="#E2E2E8"
-      TextAlignment="Center" />
+      TextAlignment="Center" />-->
 
     <TextBox
       Name="KeyTextBox"
@@ -61,11 +59,12 @@
       HorizontalAlignment="Center"
       VerticalAlignment="Center"
       VerticalContentAlignment="Center"
+      HorizontalContentAlignment="Center"
       Panel.ZIndex="0"
       BorderBrush="LightGray"
       BorderThickness="1"
       FontFamily="SegoeUI"
-      FontSize="16"
+      FontSize="20"
       Text="{Binding AuthenticationKey, UpdateSourceTrigger=PropertyChanged}">
 
       <TextBox.Style>
@@ -74,7 +73,7 @@
 
             <VisualBrush
               x:Key="GrayHelperTextBrush"
-              AlignmentX="Left"
+              AlignmentX="Center"
               AlignmentY="Center"
               Stretch="None">
               <VisualBrush.Visual>
@@ -82,14 +81,14 @@
                   Name="SearchLabel"
                   Content="Authentication key"
                   FontFamily="SegoeUI"
-                  FontSize="16"
+                  FontSize="20"
                   Foreground="LightSlateGray" />
               </VisualBrush.Visual>
             </VisualBrush>
 
             <VisualBrush
               x:Key="BlackHelperTextBrush"
-              AlignmentX="Left"
+              AlignmentX="Center"
               AlignmentY="Center"
               Stretch="None">
               <VisualBrush.Visual>
@@ -97,7 +96,7 @@
                   Name="SearchBlackLabel"
                   Content="Authentication key"
                   FontFamily="SegoeUI"
-                  FontSize="16"
+                  FontSize="20"
                   Foreground="DarkSlateGray" />
               </VisualBrush.Visual>
             </VisualBrush>
@@ -265,85 +264,8 @@
           </Setter>
         </Style>
       </Button.Style>
-
     </Button>
-
-    <!--<Button
-      Grid.Row="4"
-      Width="108"
-      Height="19"
-      Margin="0,10,0,0"
-      HorizontalAlignment="Center"
-      VerticalAlignment="Center"
-      Background="Transparent"
-      BorderThickness="0"
-      Content="Forgot Password?"
-      Cursor="Hand"
-      FontFamily="SegoeUI"
-      FontSize="14"
-      Foreground="#E2E2E8">
-
-      <Button.Template>
-        <ControlTemplate TargetType="{x:Type Button}">
-          <Border>
-            <Grid>
-              <ContentPresenter />
-              <Grid
-                x:Name="StatusPanel"
-                Background="Black"
-                Opacity="0" />
-            </Grid>
-          </Border>
-          <ControlTemplate.Triggers>
-            <Trigger Property="IsMouseOver" Value="true">
-              <Setter TargetName="StatusPanel" Property="Opacity" Value="0.1" />
-            </Trigger>
-            <Trigger Property="IsPressed" Value="true">
-              <Setter TargetName="StatusPanel" Property="Opacity" Value="0.3" />
-            </Trigger>
-          </ControlTemplate.Triggers>
-        </ControlTemplate>
-      </Button.Template>
-    </Button>-->
-
-    <!--<Button
-      Grid.Row="5"
-      Width="185"
-      Height="19"
-      Margin="17,19,0,5"
-      HorizontalAlignment="Left"
-      VerticalAlignment="Center"
-      Background="Transparent"
-      BorderThickness="0"
-      Content="Sign up for Clang Power Tools"
-      Cursor="Hand"
-      FontFamily="SegoeUI"
-      FontSize="14"
-      Foreground="#E2E2E8">
-
-      <Button.Template>
-        <ControlTemplate TargetType="{x:Type Button}">
-          <Border>
-            <Grid>
-              <ContentPresenter />
-              <Grid
-                x:Name="StatusPanel"
-                Background="Black"
-                Opacity="0" />
-            </Grid>
-          </Border>
-          <ControlTemplate.Triggers>
-            <Trigger Property="IsMouseOver" Value="true">
-              <Setter TargetName="StatusPanel" Property="Opacity" Value="0.1" />
-            </Trigger>
-            <Trigger Property="IsPressed" Value="true">
-              <Setter TargetName="StatusPanel" Property="Opacity" Value="0.3" />
-            </Trigger>
-          </ControlTemplate.Triggers>
-        </ControlTemplate>
-      </Button.Template>
-
-    </Button>-->
-
+    
   </Grid>
+  
 </Window>

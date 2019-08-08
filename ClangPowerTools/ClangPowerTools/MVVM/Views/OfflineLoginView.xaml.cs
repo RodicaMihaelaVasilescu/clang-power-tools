@@ -14,6 +14,9 @@ namespace ClangPowerTools.MVVM.Views
   public partial class OfflineLoginView : Window
   {
     private OfflineLoginViewModel offlineLoginViewModel = new OfflineLoginViewModel();
+
+    private readonly string ctpjwtFilePath = "ctpjwt";
+
     // Login button colors
     private readonly string colorBackgroundEnabled = "#FFBF31";
     private readonly string colorForegroundEnabled = "#000000";
@@ -58,7 +61,7 @@ namespace ClangPowerTools.MVVM.Views
     private void CreateCptjwtFile()
     {
       SettingsPathBuilder settingsPathBuilder = new SettingsPathBuilder();
-      string filePath = settingsPathBuilder.GetPath("ctpjwt");
+      string filePath = settingsPathBuilder.GetPath(ctpjwtFilePath);
       SaveToken(Guid.NewGuid().ToString());
     }
 
@@ -70,15 +73,16 @@ namespace ClangPowerTools.MVVM.Views
       }
 
       bool condition1 = KeyTextBox.Text.Substring(0, 4).Select(c => (int)c).Sum() == 400;
-      bool condition2 = !KeyTextBox.Text.Substring(5, 4).Any(c => c % 2 != 0);
-      bool condition3 = !KeyTextBox.Text.Substring(10, 4).Any(c => c % 2 == 0);
+      bool condition2 = KeyTextBox.Text.Substring(5, 4).Any(c => c % 2 != 0) == false;
+      bool condition3 = KeyTextBox.Text.Substring(10, 4).Any(c => c % 2 == 0) == false;
       bool condition4 = KeyTextBox.Text.Substring(15, 4).Select(c => (int)c).Sum() == 400;
       return condition1 && condition2 && condition3 && condition4;
     }
+
     private void SaveToken(string token)
     {
       SettingsPathBuilder settingsPathBuilder = new SettingsPathBuilder();
-      string filePath = settingsPathBuilder.GetPath("ctpjwt");
+      string filePath = settingsPathBuilder.GetPath(ctpjwtFilePath);
       DeleteExistingToken(filePath);
 
       using (StreamWriter streamWriter = new StreamWriter(filePath))
